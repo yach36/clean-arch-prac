@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  server:
+    container_name: server
+    build: .
+    volumes:
+      - .:/go/src/app
+    stdin_open: true
+    tty: true
+    environment:
+      - GOPATH=/go
+      - TZ=Asia/Tokyo
+    ports:
+      - 8080:8080
