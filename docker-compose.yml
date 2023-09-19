@@ -3,7 +3,9 @@ version: "3"
 services:
   server:
     container_name: server
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     volumes:
       - .:/go/src/app
     stdin_open: true
@@ -13,3 +15,20 @@ services:
       - TZ=Asia/Tokyo
     ports:
       - 8080:8080
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:16
+    volumes:
+      - clean-arch-prac-volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+networks:
+  default:
+    name: clean-arch-prac-network
+volumes:
+  clean-arch-prac-volume:
+    name: clean-arch-prac-volume
