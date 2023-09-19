@@ -8,6 +8,6 @@ COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
 COPY . .
-RUN go build -o server main.go
+RUN go build -o /server main.go
 
-CMD ["./server"]
+CMD ["/server"]
