@@ -1,13 +1,13 @@
 FROM golang:1.21.1-alpine
 
-RUN apk update && apk add bash
+RUN apk update && apk --no-cache add tzdata bash
 
-RUN mkdir /go/src/app
-WORKDIR /go/src/app
+WORKDIR /go/src/github.com/yach36/clean-arch-prac
 
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
 COPY . .
+RUN go build -o server main.go
 
-CMD ["./cmd.sh"]
+CMD ["./server"]
