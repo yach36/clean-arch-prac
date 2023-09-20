@@ -15,6 +15,12 @@ type userRepository struct {
 
 var _ repository.IUserRepository = (*userRepository)(nil)
 
+func NewUserRepository(db *sql.DB) *userRepository {
+	return &userRepository{
+		DB: db,
+	}
+}
+
 func (r *userRepository) FindAll(ctx context.Context) ([]*model.User, error) {
 	cmd := "SELECT * FROM users"
 	rows, err := r.DB.Query(cmd)
