@@ -8,8 +8,8 @@ import (
 )
 
 type IUserUsecase interface {
-	GetAll(ctx context.Context) ([]*model.User, error)
-	Get(ctx context.Context, id int) (*model.User, error)
+	GetAllUsers(ctx context.Context) ([]*model.User, error)
+	GetUser(ctx context.Context, id int) (*model.User, error)
 }
 
 type userUsecase struct {
@@ -24,7 +24,7 @@ func NewUserUsecase(r repository.IUserRepository) IUserUsecase {
 	}
 }
 
-func (u *userUsecase) GetAll(ctx context.Context) ([]*model.User, error) {
+func (u *userUsecase) GetAllUsers(ctx context.Context) ([]*model.User, error) {
 	users, err := u.repo.FindAll(ctx)
 	if err != nil {
 		return nil, err
@@ -32,7 +32,7 @@ func (u *userUsecase) GetAll(ctx context.Context) ([]*model.User, error) {
 	return users, nil
 }
 
-func (u *userUsecase) Get(ctx context.Context, id int) (*model.User, error) {
+func (u *userUsecase) GetUser(ctx context.Context, id int) (*model.User, error) {
 	user, err := u.repo.Find(ctx, id)
 	if err != nil {
 		return nil, err
