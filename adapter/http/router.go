@@ -22,6 +22,7 @@ func NewRouter() *mux.Router {
 	r.HandleFunc("/users", userController.GetUserListHandler).Methods(http.MethodGet)
 	r.HandleFunc("/users/{id}", userController.GetUserHandler).Methods(http.MethodGet)
 	r.HandleFunc("/users", userController.PostUserHandler).Methods(http.MethodPost)
+	r.HandleFunc("/users/{id}", userController.DeleteUserHandler).Methods(http.MethodDelete)
 
 	return r
 }

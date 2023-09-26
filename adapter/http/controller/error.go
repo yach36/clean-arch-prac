@@ -6,13 +6,13 @@ import (
 	"net/http"
 )
 
-func errorHandler(w http.ResponseWriter, r *http.Request, statusCode int, message string) {
+func errorHandler(w http.ResponseWriter, r *http.Request, status int, message string) {
 	log.Printf("%s\n", message)
 
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(statusCode)
+	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(Message{
-		Status:  statusCode,
+		Status:  status,
 		Message: message,
 	})
 }

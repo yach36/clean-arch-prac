@@ -63,3 +63,12 @@ func (r *userRepository) Add(ctx context.Context, user *model.User) error {
 	}
 	return nil
 }
+
+func (r *userRepository) Delete(ctx context.Context, id int) error {
+	cmd := "DELETE FROM users WHERE id = $1"
+	_, err := r.DB.Exec(cmd, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}

@@ -64,8 +64,22 @@ func (c *userController) PostUserHandler(w http.ResponseWriter, r *http.Request)
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(Message{
-		Status: 200,
-		Message: "success",
-	})
+	json.NewEncoder(w).Encode(NewMessage(200, "success"))
+}
+
+func (c *userController) DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		err = fmt.Errorf("invalid path param: %w", err)
+		errorHandler(w, r, 400, err.Error())
+		return
+	}
+
+	if err := c.usecase.DeleteUser(r.Context(), id); err != nil {
+		errorHandler(w, r, 500, err.Error())
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	json.NewEncoder(w).Encode(NewMessage(200, "success"))
 }

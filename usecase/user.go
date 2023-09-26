@@ -11,6 +11,7 @@ type IUserUsecase interface {
 	GetAllUsers(ctx context.Context) ([]*model.User, error)
 	GetUser(ctx context.Context, id int) (*model.User, error)
 	RegisterUser(ctx context.Context, user *model.User) error
+	DeleteUser(ctx context.Context, id int) error
 }
 
 type userUsecase struct {
@@ -43,6 +44,14 @@ func (u *userUsecase) GetUser(ctx context.Context, id int) (*model.User, error) 
 
 func (u *userUsecase) RegisterUser(ctx context.Context, user *model.User) error {
 	err := u.repo.Add(ctx, user)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *userUsecase) DeleteUser(ctx context.Context, id int) error {
+	err := u.repo.Delete(ctx, id)
 	if err != nil {
 		return err
 	}
