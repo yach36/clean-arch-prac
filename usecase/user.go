@@ -10,6 +10,7 @@ import (
 type IUserUsecase interface {
 	GetAllUsers(ctx context.Context) ([]*model.User, error)
 	GetUser(ctx context.Context, id int) (*model.User, error)
+	RegisterUser(ctx context.Context, user *model.User) error
 }
 
 type userUsecase struct {
@@ -38,4 +39,12 @@ func (u *userUsecase) GetUser(ctx context.Context, id int) (*model.User, error) 
 		return nil, err
 	}
 	return user, nil
+}
+
+func (u *userUsecase) RegisterUser(ctx context.Context, user *model.User) error {
+	err := u.repo.Add(ctx, user)
+	if err != nil {
+		return err
+	}
+	return nil
 }

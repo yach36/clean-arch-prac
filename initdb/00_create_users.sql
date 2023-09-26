@@ -1,6 +1,7 @@
 CREATE TABLE
     IF NOT EXISTS users (
-        id integer PRIMARY KEY,
+        id serial,
         name varchar(255),
-        age integer
+        age integer,
+        PRIMARY KEY (id)
     );

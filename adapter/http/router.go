@@ -19,8 +19,9 @@ func NewRouter() *mux.Router {
 	userUsecase := usecase.NewUserUsecase(userRepository)
 	userController := controller.NewUserController(userUsecase)
 
-	r.HandleFunc("/users", userController.GetUserListHandler)
-	r.HandleFunc("/users/{id}", userController.GetUserHandler)
+	r.HandleFunc("/users", userController.GetUserListHandler).Methods(http.MethodGet)
+	r.HandleFunc("/users/{id}", userController.GetUserHandler).Methods(http.MethodGet)
+	r.HandleFunc("/users", userController.PostUserHandler).Methods(http.MethodPost)
 
 	return r
 }

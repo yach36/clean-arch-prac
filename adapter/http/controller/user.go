@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/yach36/clean-arch-prac/domain/model"
 	"github.com/yach36/clean-arch-prac/usecase"
 )
 
@@ -47,4 +48,24 @@ func (c *userController) GetUserHandler(w http.ResponseWriter, r *http.Request) 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 	json.NewEncoder(w).Encode(user)
+}
+
+func (c *userController) PostUserHandler(w http.ResponseWriter, r *http.Request) {
+	user := new(model.User)
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		err = fmt.Errorf("invalid body param: %w", err)
+		errorHandler(w, r, 400, err.Error())
+		return
+	}
+
+	if err := c.usecase.RegisterUser(r.Context(), user); err != nil {
+		errorHandler(w, r, 500, err.Error())
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	json.NewEncoder(w).Encode(Message{
+		Status: 200,
+		Message: "success",
+	})
 }

@@ -54,3 +54,12 @@ func (r *userRepository) Find(ctx context.Context, id int) (*model.User, error) 
 	}
 	return &user, nil
 }
+
+func (r *userRepository) Add(ctx context.Context, user *model.User) error {
+	cmd := "INSERT INTO users (name, age) VALUES($1, $2)"
+	_, err := r.DB.Exec(cmd, user.Name, user.Age)
+	if err != nil {
+		return err
+	}
+	return nil
+}

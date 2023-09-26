@@ -6,12 +6,7 @@ import (
 )
 
 func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
-	type HealthCheckResponse struct {
-		Status  int    `json:"status"`
-		Message string `json:"message"`
-	}
-
-	health := &HealthCheckResponse{
+	health := &Message{
 		Status:  200,
 		Message: "ok",
 	}
