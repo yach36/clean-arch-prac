@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,15 +9,10 @@ import (
 	"strconv"
 	"time"
 
+	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 	adapterHttp "github.com/yach36/clean-arch-prac/adapter/http"
 )
-
-type MyHandler struct{}
-
-func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello World!")
-}
 
 func init() {
 	viper.SetConfigFile("config.json")
