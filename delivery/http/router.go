@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/yach36/clean-arch-prac/adapter/http/controller"
+	"github.com/yach36/clean-arch-prac/delivery/http/controller"
 	"github.com/yach36/clean-arch-prac/infra/postgres"
 	"github.com/yach36/clean-arch-prac/usecase"
 )

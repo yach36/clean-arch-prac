@@ -11,7 +11,7 @@ import (
 
 	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
-	adapterHttp "github.com/yach36/clean-arch-prac/adapter/http"
+	deliveryHttp "github.com/yach36/clean-arch-prac/delivery/http"
 )
 
 func init() {
@@ -26,7 +26,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
 
-	r := adapterHttp.NewRouter()
+	r := deliveryHttp.NewRouter()
 
 	serverAddr := viper.GetString("server.address")
 	server := &http.Server{
