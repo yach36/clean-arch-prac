@@ -4,7 +4,7 @@ import (
 	"context"
 
 	_ "github.com/lib/pq"
-	userProto "github.com/yach36/clean-arch-prac/delivery/grpc/proto"
+	"github.com/yach36/clean-arch-prac/delivery/grpc/user_grpc"
 	"github.com/yach36/clean-arch-prac/domain/model"
 	"github.com/yach36/clean-arch-prac/usecase"
 	"google.golang.org/grpc"
@@ -16,16 +16,16 @@ func NewUserServerGrpc(gserver *grpc.Server, userUsecase usecase.IUserUsecase) {
 		usecase: userUsecase,
 	}
 
-	userProto.RegisterUserServiceServer(gserver, userServer)
+	user_grpc.RegisterUserServiceServer(gserver, userServer)
 	reflection.Register(gserver)
 }
 
 type server struct {
 	usecase usecase.IUserUsecase
-	userProto.UnimplementedUserServiceServer
+	user_grpc.UnimplementedUserServiceServer
 }
 
-func (s *server) GetUser(ctx context.Context, in *userProto.GetUserRequest) (*userProto.User, error) {
+func (s *server) GetUser(ctx context.Context, in *user_grpc.GetUserRequest) (*user_grpc.User, error) {
 	id := 0
 	if in != nil {
 		id = int(in.Id)
@@ -39,8 +39,8 @@ func (s *server) GetUser(ctx context.Context, in *userProto.GetUserRequest) (*us
 	return s.transformUserRPC(user), err
 }
 
-func (s *server) transformUserRPC(user *model.User) *userProto.User {
-	return &userProto.User{
+func (s *server) transformUserRPC(user *model.User) *user_grpc.User {
+	return &user_grpc.User{
 		ID:   int64(user.ID),
 		Name: user.Name,
 		Age:  int64(user.Age),
