@@ -1,0 +1,18 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "github.com/yach36/clean-arch-prac/delivery/grpc/proto";
+
+service UserService {
+    rpc GetUser(GetUserRequest) returns (User) {};
+}
+
+message GetUserRequest {
+    int64 id = 1;
+}
+
+message User {
+    int64 ID = 1;
+    string Name = 2;
+    int64 Age = 3;
+}
