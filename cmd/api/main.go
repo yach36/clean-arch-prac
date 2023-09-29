@@ -28,7 +28,7 @@ func main() {
 
 	r := deliveryHttp.NewRouter()
 
-	serverAddr := viper.GetString("server.address")
+	serverAddr := viper.GetString("api.server.address")
 	server := &http.Server{
 		Addr:    serverAddr,
 		Handler: r,
