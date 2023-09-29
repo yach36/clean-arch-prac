@@ -13,6 +13,5 @@ RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && \
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 COPY . .
-RUN go build -o /server main.go
-
-CMD ["/server"]
+RUN go build -o /server cmd/server/main.go
+RUN go build -o /grpc cmd/grpc/main.go

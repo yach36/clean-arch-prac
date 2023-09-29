@@ -17,6 +17,24 @@ services:
       - 8080:8080
     depends_on:
       - db
+    command: ["/server"]
+  grpc:
+    container_name: grpc
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/go/src/github.com/yach36/clean-arch-prac
+    stdin_open: true
+    tty: true
+    environment:
+      - GOPATH=/go
+      - TZ=Asia/Tokyo
+    ports:
+      - 9000:9000
+    depends_on:
+      - db
+    command: ["/grpc"]
   db:
     container_name: db
     image: postgres:16
