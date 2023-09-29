@@ -16,7 +16,7 @@
     },
     "grpc": {
         "server": {
-            "address": ":9000"
+            "address": ":50051"
         }
     }
 }

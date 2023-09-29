@@ -5,10 +5,17 @@ option go_package = "github.com/yach36/clean-arch-prac/delivery/grpc/user_grpc";
 
 service UserService {
     rpc GetUser(GetUserRequest) returns (User) {};
+    rpc GetUserList (GetUserListRequest) returns (UserList) {};
 }
 
 message GetUserRequest {
     int64 id = 1;
+}
+
+message GetUserListRequest {}
+
+message UserList {
+    repeated User Users = 1;
 }
 
 message User {
@@ -16,3 +23,5 @@ message User {
     string Name = 2;
     int64 Age = 3;
 }
+
+// getall, post, delete を実装

@@ -39,6 +39,22 @@ func (s *server) GetUser(ctx context.Context, in *user_grpc.GetUserRequest) (*us
 	return s.transformUserRPC(user), err
 }
 
+func (s *server) GetUserList(ctx context.Context, in *user_grpc.GetUserListRequest) (*user_grpc.UserList, error) {
+	users, err := s.usecase.GetAllUsers(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	rpcUsers := make([]*user_grpc.User, 0)
+	for _, u := range users {
+		rpcUsers = append(rpcUsers, s.transformUserRPC(u))
+	}
+	result := &user_grpc.UserList{
+		Users: rpcUsers,
+	}
+	return result, nil
+}
+
 func (s *server) transformUserRPC(user *model.User) *user_grpc.User {
 	return &user_grpc.User{
 		ID:   int64(user.ID),
