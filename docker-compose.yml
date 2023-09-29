@@ -1,11 +1,12 @@
 version: "3"
 
 services:
-  server:
-    container_name: server
+  api:
+    container_name: api
     build:
       context: .
       dockerfile: ./Dockerfile
+      target: api-builder
     volumes:
       - .:/go/src/github.com/yach36/clean-arch-prac
     stdin_open: true
@@ -17,12 +18,12 @@ services:
       - 8080:8080
     depends_on:
       - db
-    command: ["/server"]
   grpc:
     container_name: grpc
     build:
       context: .
       dockerfile: ./Dockerfile
+      target: grpc-builder
     volumes:
       - .:/go/src/github.com/yach36/clean-arch-prac
     stdin_open: true
@@ -34,7 +35,6 @@ services:
       - 50051:50051
     depends_on:
       - db
-    command: ["/grpc"]
   db:
     container_name: db
     image: postgres:16
