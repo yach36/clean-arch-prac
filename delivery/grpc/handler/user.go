@@ -3,7 +3,6 @@ package handler
 import (
 	"context"
 
-	_ "github.com/lib/pq"
 	"github.com/yach36/clean-arch-prac/delivery/grpc/user_grpc"
 	"github.com/yach36/clean-arch-prac/domain/model"
 	"github.com/yach36/clean-arch-prac/usecase"

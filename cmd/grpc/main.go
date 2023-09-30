@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 
+	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 	deliveryGrpcHandler "github.com/yach36/clean-arch-prac/delivery/grpc/handler"
 	"github.com/yach36/clean-arch-prac/infra/postgres"
