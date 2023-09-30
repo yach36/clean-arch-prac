@@ -3,10 +3,10 @@ package postgres
 import (
 	"context"
 	"database/sql"
-	"errors"
 
 	"github.com/yach36/clean-arch-prac/domain/model"
 	"github.com/yach36/clean-arch-prac/domain/repository"
+	"github.com/yach36/clean-arch-prac/utils/cerrors"
 )
 
 type userRepository struct {
@@ -48,7 +48,7 @@ func (r *userRepository) Find(ctx context.Context, id int) (*model.User, error) 
 	err := row.Scan(&user.ID, &user.Name, &user.Age)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, errors.New("not found")
+			return nil, cerrors.NotFound.New("record not found")
 		}
 		return nil, err
 	}
