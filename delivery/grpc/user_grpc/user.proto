@@ -4,12 +4,13 @@ package user_grpc;
 option go_package = "github.com/yach36/clean-arch-prac/delivery/grpc/user_grpc";
 
 service UserService {
-    rpc GetUser(GetUserRequest) returns (User) {};
+    rpc GetUser(SingleRequest) returns (User) {};
     rpc GetUserList (GetUserListRequest) returns (UserList) {};
     rpc RegisterUser(RegisterUserRequest) returns (Response) {};
+    rpc DeleteUser(SingleRequest) returns (Response) {};
 }
 
-message GetUserRequest {
+message SingleRequest {
     int64 id = 1;
 }
 

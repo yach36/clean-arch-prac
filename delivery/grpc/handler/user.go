@@ -27,17 +27,12 @@ type server struct {
 
 var _ user_grpc.UserServiceServer = (*server)(nil)
 
-func (s *server) GetUser(ctx context.Context, in *user_grpc.GetUserRequest) (*user_grpc.User, error) {
-	id := 0
-	if in != nil {
-		id = int(in.Id)
-	}
-
+func (s *server) GetUser(ctx context.Context, in *user_grpc.SingleRequest) (*user_grpc.User, error) {
+	var id int = int(in.GetId())
 	user, err := s.usecase.GetUser(ctx, id)
 	if err != nil {
 		return nil, err
 	}
-
 	return transformUserRPC(user), err
 }
 
@@ -61,6 +56,14 @@ func (s *server) RegisterUser(ctx context.Context, in *user_grpc.RegisterUserReq
 	user := transformRegisterUserData(in)
 	if err := s.usecase.RegisterUser(ctx, user); err != nil {
 		return NewResponse(int64(cerrors.StatusCode(err)), "cannot register user"), err
+	}
+	return NewResponse(200, "success"), nil
+}
+
+func (s *server) DeleteUser(ctx context.Context, in *user_grpc.SingleRequest) (*user_grpc.Response, error) {
+	var id int = int(in.GetId())
+	if err := s.usecase.DeleteUser(ctx, id); err != nil {
+		return NewResponse(int64(cerrors.StatusCode(err)), "cannot delete user"), err
 	}
 	return NewResponse(200, "success"), nil
 }
