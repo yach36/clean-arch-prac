@@ -37,7 +37,7 @@ func (c *userController) GetUserListHandler(w http.ResponseWriter, r *http.Reque
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(users)
 }
 
@@ -55,7 +55,7 @@ func (c *userController) GetUserHandler(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(user)
 }
 
@@ -72,8 +72,8 @@ func (c *userController) PostUserHandler(w http.ResponseWriter, r *http.Request)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(NewMessage(200, "success"))
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(NewMessage(http.StatusOK, "success"))
 }
 
 func (c *userController) DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
@@ -89,6 +89,6 @@ func (c *userController) DeleteUserHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(NewMessage(200, "success"))
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(NewMessage(http.StatusOK, "success"))
 }

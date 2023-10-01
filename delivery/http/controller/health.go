@@ -7,10 +7,10 @@ import (
 
 func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	health := &Message{
-		Status:  200,
+		Status:  http.StatusOK,
 		Message: "ok",
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(health)
 }

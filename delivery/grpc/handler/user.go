@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/yach36/clean-arch-prac/delivery/grpc/user_grpc"
 	"github.com/yach36/clean-arch-prac/domain/model"
@@ -57,7 +58,7 @@ func (s *server) RegisterUser(ctx context.Context, in *user_grpc.RegisterUserReq
 	if err := s.usecase.RegisterUser(ctx, user); err != nil {
 		return NewResponse(int64(cerrors.StatusCode(err)), "cannot register user"), err
 	}
-	return NewResponse(200, "success"), nil
+	return NewResponse(http.StatusOK, "success"), nil
 }
 
 func (s *server) DeleteUser(ctx context.Context, in *user_grpc.SingleRequest) (*user_grpc.Response, error) {
@@ -65,7 +66,7 @@ func (s *server) DeleteUser(ctx context.Context, in *user_grpc.SingleRequest) (*
 	if err := s.usecase.DeleteUser(ctx, id); err != nil {
 		return NewResponse(int64(cerrors.StatusCode(err)), "cannot delete user"), err
 	}
-	return NewResponse(200, "success"), nil
+	return NewResponse(http.StatusOK, "success"), nil
 }
 
 func transformRegisterUserData(in *user_grpc.RegisterUserRequest) *model.User {
