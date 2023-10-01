@@ -9,6 +9,11 @@ flowchart LR
   id3(usecase)
   id4(delivery)
   id5(domain)
+  click id1 "https://github.com/yach36/clean-arch-prac/tree/main/cmd"
+  click id2 "https://github.com/yach36/clean-arch-prac/tree/main/infra"
+  click id3 "https://github.com/yach36/clean-arch-prac/tree/main/usecase"
+  click id4 "https://github.com/yach36/clean-arch-prac/tree/main/delivery"
+  click id5 "https://github.com/yach36/clean-arch-prac/tree/main/domain"
   subgraph s1 [Frameworks & Drivers]
     direction TB
     id6[(PostgreSQL)] -.- id2
