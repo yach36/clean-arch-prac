@@ -1,8 +1,36 @@
 # clean-arch-prac
 Goでクリーンアーキテクチャの練習
 
-## dependency direction
-cmd->(infra, delivery)->usecase->domain
+## architecture diagram
+```mermaid
+flowchart LR
+  id1(cmd)
+  id2(infra)
+  id3(usecase)
+  id4(delivery)
+  id5(domain)
+  subgraph s1 [Frameworks & Drivers]
+    direction TB
+    id6[(PostgreSQL)] -.- id2
+  end
+  subgraph s2 [Interface Adapters]
+    direction BT
+    id7([REST API]) -.- id4
+    id8([gRPC]) -.- id4
+  end
+  subgraph s3 [Application Business Rules]
+    id3
+  end
+  subgraph s4 [Enterprise Business Rules]
+    id5
+  end
+  subgraph s5 [Entrypoint]
+    id1
+  end
+  s5 --> s1 --> s3
+  s5 --> s2 --> s3
+  s3 --> s4
+```
 
 ## setup
 ```bash
