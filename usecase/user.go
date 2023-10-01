@@ -51,8 +51,12 @@ func (u *userUsecase) RegisterUser(ctx context.Context, user *model.User) error 
 }
 
 func (u *userUsecase) DeleteUser(ctx context.Context, id int) error {
-	err := u.repo.Delete(ctx, id)
+	_, err := u.repo.Find(ctx, id)
 	if err != nil {
+		return err
+	}
+
+	if err := u.repo.Delete(ctx, id); err != nil {
 		return err
 	}
 	return nil
