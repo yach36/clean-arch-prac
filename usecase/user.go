@@ -20,7 +20,7 @@ type userUsecase struct {
 
 var _ IUserUsecase = (*userUsecase)(nil)
 
-func NewUserUsecase(r repository.IUserRepository) IUserUsecase {
+func NewUserUsecase(r repository.IUserRepository) *userUsecase {
 	return &userUsecase{
 		repo: r,
 	}
