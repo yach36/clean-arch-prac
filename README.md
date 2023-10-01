@@ -2,7 +2,7 @@
 Goでクリーンアーキテクチャの練習
 
 ## dependency direction
-cmd->infra->delivery->usecase->domain
+cmd->(infra, delivery)->usecase->domain
 
 ## setup
 ```bash
