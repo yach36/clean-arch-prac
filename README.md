@@ -1,5 +1,5 @@
 # clean-arch-prac
-Goでクリーンアーキテクチャの練習
+clean architecture with golang
 
 ## architecture diagram
 ```mermaid
