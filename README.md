@@ -27,5 +27,7 @@ docker compose up -d
 ```
 
 ## grpc server
+https://github.com/yach36/clean-arch-prac/blob/main/docs/grpc.md
 
 ## REST API server
+https://github.com/yach36/clean-arch-prac/blob/main/docs/api.md
