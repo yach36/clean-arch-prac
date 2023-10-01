@@ -5,24 +5,17 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/yach36/clean-arch-prac/delivery/http/controller"
-	"github.com/yach36/clean-arch-prac/infra/postgres"
-	"github.com/yach36/clean-arch-prac/usecase"
 )
 
-func NewRouter() *mux.Router {
+func NewRouter(uc controller.IUserController) *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/health", controller.HealthCheckHandler).Methods(http.MethodGet)
 
-	dbConn := postgres.NewPostgresConnector()
-	userRepository := postgres.NewUserRepository(dbConn.DB)
-	userUsecase := usecase.NewUserUsecase(userRepository)
-	userController := controller.NewUserController(userUsecase)
-
-	r.HandleFunc("/users", userController.GetUserListHandler).Methods(http.MethodGet)
-	r.HandleFunc("/users/{id}", userController.GetUserHandler).Methods(http.MethodGet)
-	r.HandleFunc("/users", userController.PostUserHandler).Methods(http.MethodPost)
-	r.HandleFunc("/users/{id}", userController.DeleteUserHandler).Methods(http.MethodDelete)
+	r.HandleFunc("/users", uc.GetUserListHandler).Methods(http.MethodGet)
+	r.HandleFunc("/users/{id}", uc.GetUserHandler).Methods(http.MethodGet)
+	r.HandleFunc("/users", uc.PostUserHandler).Methods(http.MethodPost)
+	r.HandleFunc("/users/{id}", uc.DeleteUserHandler).Methods(http.MethodDelete)
 
 	return r
 }

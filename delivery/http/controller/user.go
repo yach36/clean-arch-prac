@@ -11,11 +11,20 @@ import (
 	"github.com/yach36/clean-arch-prac/utils/cerrors"
 )
 
+type IUserController interface {
+	GetUserListHandler(w http.ResponseWriter, r *http.Request)
+	GetUserHandler(w http.ResponseWriter, r *http.Request)
+	PostUserHandler(w http.ResponseWriter, r *http.Request)
+	DeleteUserHandler(w http.ResponseWriter, r *http.Request)
+}
+
 type userController struct {
 	usecase usecase.IUserUsecase
 }
 
-func NewUserController(u usecase.IUserUsecase) *userController {
+var _ IUserController = (*userController)(nil)
+
+func NewUserController(u usecase.IUserUsecase) IUserController {
 	return &userController{
 		usecase: u,
 	}

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	"log"
 	"net"
 
@@ -21,8 +23,19 @@ func init() {
 }
 
 func main() {
-	dbConn := postgres.NewPostgresConnector()
-	userRepo := postgres.NewUserRepository(dbConn.DB)
+	dbHost := viper.GetString("database.host")
+	dbPort := viper.GetString("database.port")
+	dbUser := viper.GetString("database.user")
+	dbPasswd := viper.GetString("database.password")
+	dbName := viper.GetString("database.name")
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUser, dbPasswd, dbName)
+	db, err := sql.Open("postgres", dsn)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	userRepo := postgres.NewUserRepository(db)
 	userUsecase := usecase.NewUserUsecase(userRepo)
 
 	serverAddr := viper.GetString("grpc.server.address")
@@ -34,7 +47,7 @@ func main() {
 	server := grpc.NewServer()
 	deliveryGrpcHandler.NewUserServerGrpc(server, userUsecase)
 	if err := server.Serve(ln); err != nil {
-		log.Fatalln(err)
+		panic(err)
 	}
 	log.Printf("grpc server start running on %s\n", serverAddr)
 }
