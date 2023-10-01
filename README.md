@@ -9,17 +9,12 @@ flowchart LR
   id3(usecase)
   id4(delivery)
   id5(domain)
-  click id1 "https://github.com/yach36/clean-arch-prac/tree/main/cmd"
-  click id2 "https://github.com/yach36/clean-arch-prac/tree/main/infra"
-  click id3 "https://github.com/yach36/clean-arch-prac/tree/main/usecase"
-  click id4 "https://github.com/yach36/clean-arch-prac/tree/main/delivery"
-  click id5 "https://github.com/yach36/clean-arch-prac/tree/main/domain"
   subgraph s1 [Frameworks & Drivers]
-    direction TB
+    direction BT
     id6[(PostgreSQL)] -.- id2
   end
   subgraph s2 [Interface Adapters]
-    direction BT
+    direction TB
     id7([REST API]) -.- id4
     id8([gRPC]) -.- id4
   end
@@ -32,9 +27,8 @@ flowchart LR
   subgraph s5 [Entrypoint]
     id1
   end
-  s5 --> s1 --> s3
-  s5 --> s2 --> s3
-  s3 --> s4
+  s5 --> s1
+  s5 --> s2 --> s3 --> s4
 ```
 
 ## setup
